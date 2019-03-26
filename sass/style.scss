@@ -1,0 +1,83 @@
+body {
+  margin: 0;
+	padding: 10px;
+	text-align: center;
+  font-family: Arial; 
+  background-color: #383a3f;
+  color: #ccc;
+}
+
+header {
+  background-color: #ccc;
+  padding: 10px;
+  color: #010101;
+}
+
+button {
+  margin: 30px;
+  padding: 11px 50px;
+  max-width: 100%;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  color: #fff;
+  background-color: #02ac46;
+	border: 2px solid #02ac46;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+   
+button:hover {
+  color: #02ac46;
+	background-color: #fff;
+}
+
+.score-board {
+  position: relative;
+  margin: 20px auto;
+  border: 3px solid white;
+  width: 200px;
+  border-radius: 4px;
+  font-size: 26px;
+  padding: 15px 20px;
+}
+
+.badge {
+  background-color: #f2532b;
+  font-size: 16px;
+}
+
+#user-label {
+  position: absolute;
+  top: 20px;
+  left: 0px;
+}
+
+#computer-label {
+  position: absolute;
+  top: 20px;
+  right: 0;
+}
+
+.new-game {
+  text-align: left;
+}
+
+.new-button {
+  background-color: #6f93db;
+}
+
+.winner {
+  color: #f40e3c;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.newGame {
+ font-size: 20px;
+ text-weight: bold;
+ padding: 10px;
+}
