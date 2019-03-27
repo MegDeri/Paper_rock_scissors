@@ -1,52 +1,68 @@
+$body-background: #383a3f;
+$body-fonts: #ccc;
+$header-fonts: #010101;
+$button-fonts: #fff;
+$button-background: #02ac46;
+$badge-background: #f2532b;
+$newbutton-background: #6f93db;
+$regular-fonts: #000;
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
 body {
   margin: 0;
 	padding: 10px;
 	text-align: center;
   font-family: Arial; 
-  background-color: #383a3f;
-  color: #ccc;
+  background-color: $body-background;
+  color: $body-fonts;
 }
 
 header {
-  background-color: #ccc;
+  background-color: $body-fonts;
   padding: 10px;
-  color: #010101;
+  color: $header-fonts;
 }
 
 button {
   margin: 30px;
   padding: 11px 50px;
-  max-width: 100%;
+  width: 255px;
   font-size: 18px;
   font-weight: 600;
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
-  color: #fff;
-  background-color: #02ac46;
-	border: 2px solid #02ac46;
-  border-radius: 4px;
+  color: $button-fonts;
+  background-color: $button-background;
+	border: 2px solid $button-background;
+  @include border-radius(4px);
   cursor: pointer;
   transition: all 0.5s ease;
 }
    
 button:hover {
-  color: #02ac46;
-	background-color: #fff;
+  color: $button-background;
+	background-color: $button-fonts;
 }
 
 .score-board {
   position: relative;
   margin: 20px auto;
-  border: 3px solid white;
+  border: 3px solid $button-fonts;
   width: 200px;
-  border-radius: 4px;
+  @include border-radius(4px);
   font-size: 26px;
   padding: 15px 20px;
 }
 
 .badge {
-  background-color: #f2532b;
+  background-color: $badge-background;
   font-size: 16px;
 }
 
@@ -67,17 +83,70 @@ button:hover {
 }
 
 .new-button {
-  background-color: #6f93db;
+  background-color: $newbutton-background;
 }
 
 .winner {
-  color: #f40e3c;
+  color: $badge-background;
   font-size: 20px;
   padding: 10px;
 }
 
 .newGame {
  font-size: 20px;
- text-weight: bold;
+ font-weight: bold;
  padding: 10px;
+}
+
+.overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	&.show {
+		display: block;
+	}
+}
+
+.modal {
+	
+	background: $button-fonts;
+	min-width: 400px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  @include border-radius(4px);
+  font-size: 20px;
+
+
+  .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px;
+    color: $regular-fonts;
+    text-decoration: none;
+    font-size: 20px;
+  }
+	.content {
+		min-height: 30px;
+		padding: 5px 30px;
+  }
+  header {
+		font-size: 22px;
+		line-height: 30px;
+		min-height: 30px;
+		font-weight: bold;
+    padding: 0 30px;
+    color: $button-background;
+    @include border-radius(4px);
+	}
+}
+
+.table-modal th {
+  padding: 10px;
 }

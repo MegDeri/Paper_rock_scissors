@@ -1,19 +1,26 @@
 'use strict';
-var userScore = 0;
-var computerScore = 0;
 var userScoreSpan = document.getElementById('user-score');
 var computerScoreSpan = document.getElementById('computer-score');
 var scoreBoradDiv = document.getElementById('score-board');
 var resultDiv = document.getElementById('resultEnd');
-var button1 = document.getElementById('paper');
-var button2 = document.getElementById('rock');
-var button3 = document.getElementById('scissors');
+var buttons = document.getElementsByClassName('player-move')
 var output = document.getElementById('greeter-output');
 var restartGame = document.getElementById('restart');
 var newGame = document.getElementById('new-game');
 var winnerLast = document.getElementById('winner-last');
-var roundsNumber = 0; 
-var pastRound = 0;
+var modals = document.getElementsByClassName('modal');
+var closeButtons = document.querySelectorAll('.modal .close');
+var tableModal = document.getElementById('table-modal');
+var tableIn = params.progress;
+var params = {
+  roundsNumber: 0,
+  pastRound: 0,
+  userScore: 0,
+  computerScore: 0,
+  player: '',
+  computerChoice: '',
+  progress: [],
+}
 
 //Computer random choice
 function getComputerChoice() {
@@ -24,82 +31,127 @@ function getComputerChoice() {
 
 //User choice
 function playerMove(userChoice) {
-  if (pastRound < roundsNumber ) {
-     pastRound++;
-     var player = userChoice;
-     var computerChoice = getComputerChoice();
-      whoWins(player, computerChoice);
+  if (params.pastRound < params.roundsNumber ) {
+    params.pastRound++;
+     params.player = userChoice;
+     params.computerChoice = getComputerChoice();
+      whoWins(params.player, params.computerChoice);
       showScore();
       showWinner();
+      addRecord();
+      createTable()
     }
 }
  
  //Three sets of nested if-else statements for when user picks rock, paper, or scissors
-    function whoWins(player, computerChoice) {
-      if (player === computerChoice ) {
-      resultDiv.innerHTML = "You choose " + player + " Computer: " + computerChoice + " . It's a tie!"; 
-      } else if (((player === 'rock') && (computerChoice === 'scissors')) || ((player === 'paper') &&     (computerChoice === 'rock')) || ((player === 'scissors') && (computerChoice === 'paper'))) {
-      resultDiv.innerHTML = "You choose " + player + " Computer: " + computerChoice + " . You win!";
-      userScore++;
-      } else  {
-      resultDiv.innerHTML = "You choose " + player + " Computer: " + computerChoice + " . Computer wins!";
-     computerScore++;
-      } 
-   }
+function whoWins() {
+  if (params.player === params.computerChoice ) {
+  resultDiv.innerHTML = "You choose " + params.player + " Computer: " + params.computerChoice + " . It's a tie!"; 
+  } else if (((params.player === 'rock') && (params.computerChoice === 'scissors')) || ((params.player === 'paper') && (params.computerChoice === 'rock')) || ((params.player === 'scissors') && (params.computerChoice === 'paper'))) {
+  resultDiv.innerHTML = "You choose " + params.player + " Computer: " + params.computerChoice + " . You win!";
+  params.userScore++;
+  } else {
+  resultDiv.innerHTML = "You choose " + params.player + " Computer: " + params.computerChoice + " . Computer wins!";
+  params.computerScore++;
+  } 
+}
   
 function showScore() {
-    userScoreSpan.innerHTML = userScore;
-    computerScoreSpan.innerHTML = computerScore;
-    newGame.innerHTML = pastRound + '/' + roundsNumber;
+    userScoreSpan.innerHTML = params.userScore;
+    computerScoreSpan.innerHTML = params.computerScore;
+    newGame.innerHTML = params.pastRound + '/' + params.roundsNumber;
 }
 
 function showWinner() {
-  if (pastRound == roundsNumber) {
-    if (userScore > computerScore) {
+  if (params.pastRound == params.roundsNumber) {
+    if (params.userScore > params.computerScore) {
       winnerLast.innerHTML = "You win! Game is over";
-    } else if (userScore < computerScore) {
+    } else if (params.userScore < params.computerScore) {
       winnerLast.innerHTML = "Computer wins! Game is over";
     } else {
       winnerLast.innerHTML = "It is a draw! Game is over";
     }
+    showModal();
   }
 }
 
-//Reset game when player clicks 'New game' button
-function resetGame() {
-   pastRound = 0;
-   userScore = 0;
-   computerScore = 0;
-   userScoreSpan.innerHTML = userScore;
-   computerScoreSpan.innerHTML = computerScore;
-   output.innerHTML = 'Click the button and start!';
-   resultDiv.innerHTML = 'Result:';
-   newGame.innerHTML = pastRound + '/';
-   winnerLast.innerHTML = "New game";
+//Show modal after final round
+function showModal() {
+  document.querySelector('#modal-overlay').classList.add('show');
+}
+
+//Close modal function
+var hideModal = function(event) {
+  event.preventDefault();
+  document.querySelector('#modal-overlay').classList.remove('show');
 };
 
+for (var i = 0; i < closeButtons.length; i++) {
+  closeButtons[i].addEventListener('click', hideModal);
+}
+
+document.querySelector('#modal-overlay').addEventListener('click', hideModal);
+
+//Propagation modals
+for (var i = 0; i < modals.length; i++) {
+  modals[i].addEventListener('click', function(event) {
+    event.stopPropagation();
+  });
+};
+
+//Reset game when player clicks 'New game' button
+function resetGame() {
+   params.pastRound = 0;
+   params.userScore = 0;
+   params.computerScore = 0;
+   userScoreSpan.innerHTML = params.userScore;
+   computerScoreSpan.innerHTML = params.computerScore;
+   output.innerHTML = 'Click one of the buttons and start!';
+   resultDiv.innerHTML = 'Result:';
+   newGame.innerHTML = params.pastRound + '/';
+   winnerLast.innerHTML = "New game";
+   tableIn = [];
+};
 
 //Connection to button "New game" and display window.prompt with nr of rounds.
 restartGame.addEventListener('click', function(){
-    roundsNumber = window.prompt('Set number of rounds. Max: 5');
-      if (roundsNumber != null) {
-      newGame.innerHTML = pastRound + '/' + roundsNumber;
+  params.roundsNumber = window.prompt('Set number of rounds.');
+      if (params.roundsNumber != null) {
+      newGame.innerHTML = params.pastRound + '/' + params.roundsNumber;
       }
       resetGame();
  });
 
-//Connection to buttons
-  button1.addEventListener('click', function() {
-       playerMove("paper");
-       output.innerHTML = 'Hey you click on paper';
+//Connection to buttons: 'Paper', 'Rock', 'Scissors'
+for( var i = 0; i < buttons.length; i++ ){
+  buttons[i].addEventListener('click', function(event) {
+    
+    var buttonMove = event.target.getAttribute('data-move');
+    playerMove(buttonMove);
 });
+}
 
-  button2.addEventListener('click', function() {
-     playerMove("rock");
-     output.innerHTML = 'Hey you click on rock';
-});
+function createTable() {
+  var newHTML = '<table><thead><tr><th>Rounds</th><th>Your Move</th><th>Computer Move</th><th>Round Result</th></tr></thead><tbody>';
+  for (i = 0; i < tableIn.length; i++) {
+    newHTML += '<tr><td>' +
+      tableIn[i].rounds + '</td><td>' + 
+      tableIn[i].playerChoice + '</td><td>' + 
+      tableIn[i].computerChoice + '</td><td>' +
+      tableIn[i].playerScore + ' : ' + tableIn[i].compScore + '</td></tr>'
+  }
+    newHTML += '</tbody></table>';
+    tableModal.innerHTML = newHTML;
+}
 
-  button3.addEventListener('click', function() {
-      playerMove("scissors");
-      output.innerHTML = 'Hey you click on scissors';
-});
+function addRecord() {
+  tableIn.push({
+    rounds: (params.pastRound),
+    playerScore: (params.userScore),
+    compScore: (params.computerScore),
+    playerChoice: (params.player),
+    computerChoice: (params.computerChoice)
+    }
+  )
+}
+

@@ -1,50 +1,42 @@
 <!DOCTYPE html>
 <html lang="en" >
-
-<head>
-  <meta charset="UTF-8">
-  <title>zad 8.4 game</title>
-  
-  
-  
-      <link rel="stylesheet" href="css/style.css">
-
-  
-</head>
-
-<body>
-
+  <head>
+    <meta charset="UTF-8">
+    <title>zad 13.3 game</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
   <body>
-  <header>
-    <h1>ROCK PAPER SCISSORS</h1>
-    <h2>Let's start!</h2>
-  </header>
-  <div class="new-game">
-    <button id="restart" class="new-button">Start new game!</button>
-  </div>
-  <div id="new-game" class="newGame"></div>
-  <div id="winner-last" class="winner"></div>
-  <div id="score-board" class="score-board">
-    <div id="user-label" class="badge">User</div>
-    <div id="computer-label" class="badge">Comp</div>
-    <span id="user-score">0</span> : <span id="computer-score">0</span>
-  </div>
-  <div id="resultEnd" class="result">Result:</div>
-  <div>
-    <button id="paper">Choose paper!</button>
-    <button id="rock">Choose rock!</button>
-    <button id="scissors">Choose scissors!</button>
-  </div>
-  <div id="greeter-output"></div>
-</body>
-  
-  
-
+    <header>
+      <h1>ROCK PAPER SCISSORS</h1>
+      <h2>Let's start!</h2>
+    </header>
+    <div class="new-game">
+      <button id="restart" class="new-button">Start new game!</button>
+    </div>
+    <div id="new-game" class="newGame"></div>
+    <div ></div>
+    <div id="score-board" class="score-board">
+      <div id="user-label" class="badge">User</div>
+      <div id="computer-label" class="badge">Comp</div>
+      <span id="user-score">0</span> : <span id="computer-score">0</span>
+    </div>
+    <div id="resultEnd" class="result">Result:</div>
+    <div>
+      <button class="player-move" id="paper" data-move="paper">Choose paper!</button>
+      <button class="player-move" id="rock" data-move="rock">Choose rock!</button>
+      <button class="player-move" id="scissors" data-move="scissors">Choose scissors!</button>
+    </div>
+    <div id="greeter-output"></div>
+    <div class="overlay" id="modal-overlay">
+      <div class="modal" id="modal-one">
+        <a href="#" class="close">x</a>
+        <header>Who is a winner?</header>
+        <div class="content">
+          <div id="winner-last" class="winner">Dolor sit amet!</div>
+          <div id="table-modal" class="table-modal"></div>
+        </div>
+      </div>
+    </div>
     <script  src="js/index.js"></script>
-
-
-
-
 </body>
-
 </html>
