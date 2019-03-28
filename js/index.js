@@ -11,12 +11,11 @@ var winnerLast = document.getElementById('winner-last');
 var modals = document.getElementsByClassName('modal');
 var closeButtons = document.querySelectorAll('.modal .close');
 var tableModal = document.getElementById('table-modal');
-var tableIn = params.progress;
 var params = {
   roundsNumber: 0,
   pastRound: 0,
   userScore: 0,
-  computerScore: 0,
+  computerScore: 0, 
   player: '',
   computerChoice: '',
   progress: [],
@@ -110,7 +109,7 @@ function resetGame() {
    resultDiv.innerHTML = 'Result:';
    newGame.innerHTML = params.pastRound + '/';
    winnerLast.innerHTML = "New game";
-   tableIn = [];
+   params.progress = [];
 };
 
 //Connection to button "New game" and display window.prompt with nr of rounds.
@@ -133,19 +132,19 @@ for( var i = 0; i < buttons.length; i++ ){
 
 function createTable() {
   var newHTML = '<table><thead><tr><th>Rounds</th><th>Your Move</th><th>Computer Move</th><th>Round Result</th></tr></thead><tbody>';
-  for (i = 0; i < tableIn.length; i++) {
+  for (i = 0; i < params.progress.length; i++) {
     newHTML += '<tr><td>' +
-      tableIn[i].rounds + '</td><td>' + 
-      tableIn[i].playerChoice + '</td><td>' + 
-      tableIn[i].computerChoice + '</td><td>' +
-      tableIn[i].playerScore + ' : ' + tableIn[i].compScore + '</td></tr>'
+    params.progress[i].rounds + '</td><td>' + 
+    params.progress[i].playerChoice + '</td><td>' + 
+    params.progress[i].computerChoice + '</td><td>' +
+    params.progress[i].playerScore + ' : ' + params.progress[i].compScore + '</td></tr>'
   }
     newHTML += '</tbody></table>';
     tableModal.innerHTML = newHTML;
 }
 
 function addRecord() {
-  tableIn.push({
+  params.progress.push({
     rounds: (params.pastRound),
     playerScore: (params.userScore),
     compScore: (params.computerScore),
