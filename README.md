@@ -1,2 +1,2 @@
 # Paper_rock_scissors
-game paper-rock-scissors
+game https://megderi.github.io/Paper_rock_scissors/
