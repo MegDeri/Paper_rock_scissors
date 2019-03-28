@@ -15,8 +15,8 @@ var params = {
   roundsNumber: 0,
   pastRound: 0,
   userScore: 0,
-  computerScore: 0, 
-  player: '',
+  computerScore: 0,
+  player: '',  
   computerChoice: '',
   progress: [],
 }
