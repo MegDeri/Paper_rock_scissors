@@ -91,10 +91,10 @@ for (var i = 0; i < closeButtons.length; i++) {
 
 document.querySelector('#modal-overlay').addEventListener('click', hideModal);
 
-//Propagation modals
-modals.addEventListener('click', function(event) {
-  event.stopPropagation();
-});
+// //Propagation modals
+// modals.addEventListener('click', function(event) {
+//   event.stopPropagation();
+// });
 
 
 //Reset game when player clicks 'New game' button
