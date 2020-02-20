@@ -2,4 +2,4 @@
 ## DEMO: https://megderi.github.io/Paper_rock_scissors/
 
 ### Project description:
-Simple game paper rock scissors is written in JavaScript(ES6)
+Simple game paper rock scissors is written in JavaScript.
